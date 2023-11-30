@@ -1,26 +1,15 @@
-# DCGAN 
-Provide the ```PyTorch tutorial code``` for understanding DCGAN (Deep Convolutional GAN) model.
+## Study-Diffusion-Model
+Diffusion Model PyTorch study repository
 
-Original paper: [Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks](https://arxiv.org/pdf/1511.06434.pdf). *[ICLR 2016]*  
-All codes were obtained from the official pyTorch page: [[Link]](https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html)
+## 💡 Description
+* <strong>Conditional DM:</strong> Conditional DDPM/DDIM (MNIST Dataset)
 
-### The network pipeline.
-![DCGAN](https://github.com/SkiddieAhn/SkiddieAhn/assets/52392658/b5556a1e-9066-402c-899d-ce206082e888)
+## 📖 Papers
+* Denoising Diffusion Probabilistic Models (NIPS, 2020) <strong>[[DDPM](https://arxiv.org/pdf/2006.11239.pdf)]</strong>
+* DENOISING DIFFUSION IMPLICIT MODELS (ICLR, 2021) <strong>[[DDIM](https://arxiv.org/pdf/2010.02502.pdf)]</strong>
 
-## Dataset
-|     Celeb-A Faces            |
-|:------------------------:|
-| [Google Drive](https://drive.google.com/file/d/0B7EVK8r0v71pZjFTYXZWM3FlRnM/view?resourcekey=0-dYn9z10tMJOBAkviAcfdyQ)   |
-  
-· **Celeb-A Faces** dataset is a large collection of celebrity facial images used for tasks like facial recognition and generative modeling.  
-· It includes over ```200,000``` diverse celebrity images.  
-· Please download the data from the Google Drive link above, unzip the zip file, and then move it to the ```data/celeba``` directory.  
-![gen](https://github.com/SkiddieAhn/SkiddieAhn/assets/52392658/7d902067-c890-4b08-9cd3-4c7d7b4d830d)  
+## 👋 Tip
+For a smoother connection, please use the following website.  
+<strong>[[Jupyter Notebook Viewer](https://nbviewer.org/github/skiddieahn/Study-Data-Analysis/tree/master/)]</strong>
 
-## Results
-![generated](https://github.com/SkiddieAhn/SkiddieAhn/assets/52392658/b3e93f50-1a4f-4864-a5ff-102b92e70aa6)
 
-## 📖 Lecture Note
-* <strong>DCGAN lecture note</strong>: [[Link](https://shacoding.com/2023/11/24/%ec%bd%94%eb%94%a9-%ec%8b%a4%ec%8a%b5-deep-convolutional-generative-adversarial-networks/)] (23.11.09)
-
- 
