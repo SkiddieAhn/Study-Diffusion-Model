@@ -1,12 +1,12 @@
 # Conditional DM
 Conditional DDPM/DDIM with PyTorch using MNIST Dataset.
 
-### Denoising Diffusion Probabilistic Models [DDPM]
+### 1. Denoising Diffusion Probabilistic Models [DDPM]
 ![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/beebfccf-6bb2-401b-abfa-a2598d9ec2ea)  
 ![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/55f08dbb-49df-4c27-a0d4-ad0e94b86b85)
 
 
-### Denoising Diffusion Implicit Models [DDIM]
+### 2. Denoising Diffusion Implicit Models [DDIM]
 ![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/27c066ed-1756-4a90-87d1-38a8c5e76516)
 ![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/b060fce0-f6a6-48df-9d60-89ba2860717b)
 
