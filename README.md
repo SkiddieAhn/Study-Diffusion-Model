@@ -10,6 +10,6 @@ Diffusion Model PyTorch study repository
 
 ## 👋 Tip
 For a smoother connection, please use the following website.  
-<strong>[[Jupyter Notebook Viewer](https://nbviewer.org/github/skiddieahn/Study-Data-Analysis/tree/master/)]</strong>
+<strong>[[Jupyter Notebook Viewer](https://nbviewer.org/github/SkiddieAhn/Study-Diffusion-Model/tree/master/)]</strong>
 
 
