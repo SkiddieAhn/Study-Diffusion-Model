@@ -81,7 +81,7 @@ class UpResBlock(nn.Module):
 
 
 class ResAttnBlock(nn.Module):
-    def __init__(self, stage, patch_num, dim, ced=1):
+    def __init__(self, stage, patch_num, dim, ced=64):
         super(ResAttnBlock, self).__init__()
 
         self.n = patch_num
