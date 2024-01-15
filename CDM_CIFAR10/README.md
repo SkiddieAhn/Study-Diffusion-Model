@@ -1,5 +1,6 @@
 # Conditional DM with CFG
-Conditional DDPM/DDIM with Classifier Free Guidance.
+Conditional DDPM/DDIM with Classifier Free Guidance.  
+Most codes were obtained from the following GitHub page: [[Link]](https://github.com/tcapelle/Diffusion-Models-pytorch)
 
 ### Classifier Free Guidance [CFG]
 ![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/5a803333-95f1-4e6c-b29d-6e504c96f19e)
