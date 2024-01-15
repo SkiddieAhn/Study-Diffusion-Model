@@ -2,8 +2,8 @@
 Diffusion Model PyTorch study repository
 
 ## 💡 Description
-* <strong>CDM_MNIST_SIMPLE:</strong> Conditional DDPM/DDIM (MNIST Dataset)
-* <strong>CDM_CIFAR10:</strong> Conditional DDPM/DDIM with CFG (CIFAR10 Dataset)
+* <strong>CDM_MNIST_SIMPLE:</strong> Conditional DDPM/DDIM  *[MNIST dataset]*
+* <strong>CDM_CIFAR10:</strong> Conditional DDPM/DDIM with CFG  *[CIFAR10 dataset]*
 
 ## 📖 Papers
 * Denoising Diffusion Probabilistic Models (NIPS, 2020) <strong>[[DDPM](https://arxiv.org/pdf/2006.11239.pdf)]</strong>
