@@ -24,6 +24,7 @@ python train.py --resume=cifar10_1000
 
 ## Testing
 - Please check ```test.py``` and ```config.py``` files and evaluate the model.
+- When generation is completed, the **video** is automatically saved in the ```contents``` directory.
 ```Shell
 # recommended option for testing
 python --trained_model=cifar10_1000 --ddim_sampling=False --cfg_w=2.0
