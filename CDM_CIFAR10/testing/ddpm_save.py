@@ -9,6 +9,8 @@ def DDPM_SAVE(cfg, model, device):
     out_rsl = rsl * 10
     condition_num = cfg.num_classes
     data_size = condition_num ** 2
+    cfg_w = cfg.cfg_w
+    save_images = cfg.save_images
 
     # setting condition
     if cfg.condition:
@@ -17,6 +19,7 @@ def DDPM_SAVE(cfg, model, device):
         c = torch.tensor(c, dtype=torch.long).to(device)
     else:
         c = None
+        cfg_w = 0 
     
     # diffusion model parameter
     timestep_num = cfg.timestep_num
@@ -26,7 +29,6 @@ def DDPM_SAVE(cfg, model, device):
         beta_list = beta_schedule_cosine(timestep_num)
     else:
         beta_list = beta_schedule_quadratic(timestep_num)
-        
     alpha_list = get_alpha_list(beta_list)
     alpha_bar_list = get_alpha_bar_list(alpha_list)
     sqrt_one_minus_alpha_bar_list = torch.sqrt(1.0 - alpha_bar_list)
@@ -46,8 +48,11 @@ def DDPM_SAVE(cfg, model, device):
             in_t = torch.full((data_size,), t, dtype=torch.long).to(device)
             in_c = c
 
-            # forward 
+            # model forward with CFG
             pred_noise = model(g_img, in_t, in_c)
+            if cfg_w > 0:
+                uncond_pred_noise = model(g_img, in_t, None)
+                pred_noise = (1+cfg_w)*pred_noise - cfg_w*uncond_pred_noise
 
             # get t-th images 
             if t > 0:
@@ -78,8 +83,10 @@ def DDPM_SAVE(cfg, model, device):
             # save grid image per 100 time step 
             if ((t+1) < 1000) and ((t+1) % 100 == 0):
                 print(f'{t+1} step')
-                file_path = f"./contents/ddpm/{t+1}_step_img.png"
-                cv2.imwrite(file_path, out_img)
+                if save_images:
+                    print(f'{t+1} step')
+                    file_path = f"./contents/ddpm/{t+1}_step_img.png"
+                    cv2.imwrite(file_path, out_img)
 
         # finish
         file_path = f"./contents/ddpm/last_img.png"

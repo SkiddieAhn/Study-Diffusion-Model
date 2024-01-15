@@ -12,11 +12,13 @@ parser.add_argument('--trained_model', default=None, type=str)
 parser.add_argument('--time_dim', default=256, type=int)
 parser.add_argument('--deep_conv', default=True, type=str2bool, nargs='?', const=True)
 parser.add_argument('--condition', default=True, type=str2bool, nargs='?', const=True)
+parser.add_argument('--cfg_w', default=0.1, type=float)
 parser.add_argument('--timestep_num', default=1000, type=int)
 parser.add_argument('--sampling_timesteps', default=100, type=int)
 parser.add_argument('--beta_schedule', default='linear', type=str)
 parser.add_argument('--ddim_eta', default=0, type=int)
 parser.add_argument('--ddim_sampling', default=True, type=str2bool, nargs='?', const=True)
+parser.add_argument('--save_images', default=False, type=str2bool, nargs='?', const=True)
 
 
 def make_models_dict(model, epoch):

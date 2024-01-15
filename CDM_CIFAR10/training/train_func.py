@@ -29,6 +29,7 @@ class Training():
         # diffusion model parameters
         self.condition = cfg.condition
         self.num_classes = cfg.num_classes
+        self.cfg_p_uncond = cfg.cfg_p_uncond
         self.cfg_w = cfg.cfg_w
         self.timestep_num = cfg.timestep_num
         self.sampling_timesteps = cfg.sampling_timesteps
@@ -87,7 +88,7 @@ class Training():
                 c = None
 
             # Classifier Free Guidance 
-            if np.random.random() < self.cfg_w:
+            if np.random.random() < self.cfg_p_uncond:
                 c = None
 
             # get loss
@@ -176,6 +177,6 @@ class Training():
             # save image
             if (epoch+1) % self.visual_log_interval == 0:
                 file_path = f'contents/{self.dataset_name}_{epoch+1}.jpg'
-                save_image(file_path, self.model, self.alpha_bar_list, self.rsl, self.in_channels, self.condition, 
+                save_image(file_path, self.model, self.alpha_bar_list, self.cfg_w, self.rsl, self.in_channels, self.condition, 
                            self.num_classes, self.timestep_num, self.sampling_timesteps, self.ddim_eta, self.device, self.wandb)
  

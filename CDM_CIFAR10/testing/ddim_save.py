@@ -9,6 +9,8 @@ def DDIM_SAVE(cfg, model, device):
     out_rsl = rsl * 10
     condition_num = cfg.num_classes
     data_size = condition_num ** 2
+    cfg_w = cfg.cfg_w
+    save_images = cfg.save_images
 
     # setting condition
     if cfg.condition:
@@ -17,19 +19,18 @@ def DDIM_SAVE(cfg, model, device):
         c = torch.tensor(c, dtype=torch.long).to(device)
     else:
         c = None
+        cfg_w = 0 
     
     # diffusion model parameter
     eta = cfg.ddim_eta
     timestep_num = cfg.timestep_num
     sampling_timesteps = cfg.sampling_timesteps
-    
     if cfg.beta_schedule == 'linear':
         beta_list = beta_schedule_linear(timestep_num)
     elif cfg.beta_schedule == 'cosine':
         beta_list = beta_schedule_cosine(timestep_num)
     else:
         beta_list = beta_schedule_quadratic(timestep_num)
-        
     alpha_list = get_alpha_list(beta_list)
     alpha_bar_list = get_alpha_bar_list(alpha_list)
 
@@ -48,12 +49,15 @@ def DDIM_SAVE(cfg, model, device):
         time_pairs = list(zip(times[:-1], times[1:])) # [(T-1, T-2), (T-2, T-3), ..., (1, 0), (0, -1)]
         
         # Inference
-        for time, time_next in time_pairs:        
+        for time, time_next in time_pairs:   
             in_t = torch.full((data_size,), time, dtype=torch.long).to(device)
             in_c = c
 
-            # model forward 
+            # model forward with CFG
             pred_noise = model(g_img, in_t, in_c)
+            if cfg_w > 0:
+                uncond_pred_noise = model(g_img, in_t, None)
+                pred_noise = (1+cfg_w)*pred_noise - cfg_w*uncond_pred_noise
 
             # set alpha
             alpha = alpha_bar_list[time]
@@ -95,10 +99,11 @@ def DDIM_SAVE(cfg, model, device):
             out_img = cv2.cvtColor(out_img, cv2.COLOR_BGR2RGB)
             out.write(out_img)
 
-            # save grid image per sampling time step 
             print(f'{time+1} step')
-            file_path = f"./contents/ddim/{time+1}_step_img.png"
-            cv2.imwrite(file_path, out_img)
+            # save grid image per sampling time step 
+            if save_images:
+                file_path = f"./contents/ddim/{time+1}_step_img.png"
+                cv2.imwrite(file_path, out_img)
 
         # finish
         file_path = f"./contents/ddim/last_img.png"

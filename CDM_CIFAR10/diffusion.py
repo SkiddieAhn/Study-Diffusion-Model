@@ -2,7 +2,6 @@ import torch
 from fastprogress import progress_bar
 import numpy as np
 
-
 def beta_schedule_cosine(timesteps, s=0.008):
     """
     cosine schedule as proposed in https://arxiv.org/abs/2102.09672
@@ -38,7 +37,7 @@ def get_alpha_bar_list(alpha_list):
 
 
 @torch.inference_mode()
-def sampling(model, alpha_bar_list, condition=True, rsl=32, channels=3, num=10, total_timesteps=1000, sampling_timesteps=100, eta=0, device='cuda'):
+def sampling(model, alpha_bar_list, condition=True, cfg_w=0.1, rsl=32, channels=3, num=10, total_timesteps=1000, sampling_timesteps=100, eta=0, device='cuda'):
     print(f"\n Sampling {num} new images....")
 
     if condition:
@@ -47,6 +46,7 @@ def sampling(model, alpha_bar_list, condition=True, rsl=32, channels=3, num=10, 
         c = torch.tensor(c, dtype=torch.long).to(device)
     else:
         c = None
+        cfg_w = 0
 
     # get time_pairs 
     times = torch.linspace(-1, total_timesteps - 1, steps = sampling_timesteps + 1)   # [-1, 0, 1, 2, ..., T-1] when sampling_timesteps == total_timesteps
@@ -60,9 +60,12 @@ def sampling(model, alpha_bar_list, condition=True, rsl=32, channels=3, num=10, 
     for time, time_next in progress_bar(time_pairs, total=len(time_pairs)):        
         in_t = torch.full((num,), time, dtype=torch.long).to(device)
         in_c = c
-        
-        # model forward 
+
+        # model forward with CFG
         pred_noise = model(g_img, in_t, in_c)
+        if cfg_w > 0:
+            uncond_pred_noise = model(g_img, in_t, None)
+            pred_noise = (1+cfg_w)*pred_noise - cfg_w*uncond_pred_noise
 
         # set alpha
         alpha = alpha_bar_list[time]

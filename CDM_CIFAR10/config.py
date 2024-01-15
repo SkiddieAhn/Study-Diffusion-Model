@@ -37,6 +37,7 @@ def update_config(args=None, mode='train'):
     share_config['beta_schedule'] = args.beta_schedule
     share_config['ddim_eta'] = args.ddim_eta
     share_config['deep_conv'] = args.deep_conv
+    share_config['cfg_w'] = args.cfg_w
 
     if mode == 'train':
         share_config['batch_size'] = args.batch_size
@@ -46,11 +47,12 @@ def update_config(args=None, mode='train'):
         share_config['save_interval'] = args.save_interval
         share_config['visual_log_interval'] = args.visual_log_interval
         share_config['ema'] = args.ema
-        share_config['cfg_w'] = args.cfg_w
         share_config['wandb'] = args.wandb
+        share_config['cfg_p_uncond'] = args.cfg_p_uncond
 
     elif mode == 'test':
         share_config['trained_model'] = glob.glob(f'weights/{args.trained_model}*')[0] if args.trained_model else None
         share_config['ddim_sampling'] = args.ddim_sampling
+        share_config['save_images'] = args.save_images
 
     return dict2class(share_config, mode)  # change dict keys to class attributes

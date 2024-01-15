@@ -19,11 +19,11 @@ def update_best_model(dataset_name, model, opt, epoch, loss, min_loss):
     return min_loss
 
 
-def save_image(file_path, model, alpha_bar_list, rsl, in_channels, condition, num_classes, timestep_num, sampling_timesteps, eta, device, is_wandb):
+def save_image(file_path, model, alpha_bar_list, cfg_w, rsl, in_channels, condition, num_classes, timestep_num, sampling_timesteps, eta, device, is_wandb):
     model.eval()
     # sampling
-    g_img = sampling(model=model, alpha_bar_list=alpha_bar_list, condition=condition, rsl=rsl, channels=in_channels, num=num_classes, 
-                     total_timesteps=timestep_num, sampling_timesteps=sampling_timesteps, eta=eta, device=device)
+    g_img = sampling(model=model, alpha_bar_list=alpha_bar_list, condition=condition, cfg_w=cfg_w, rsl=rsl, channels=in_channels, 
+                     num=num_classes, total_timesteps=timestep_num, sampling_timesteps=sampling_timesteps, eta=eta, device=device)
     g_img = torch.clip(g_img, -1.0, 1.0)
     save_image = ((g_img + 1.0) / 2.0) * 255.
 
