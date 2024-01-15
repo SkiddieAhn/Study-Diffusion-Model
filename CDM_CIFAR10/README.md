@@ -1,25 +1,69 @@
-# Conditional DM
-Conditional DDPM/DDIM with PyTorch using MNIST Dataset.
+# Conditional DM with CFG
+Conditional DDPM/DDIM with Classifier Free Guidance.
 
-### 1. Denoising Diffusion Probabilistic Models [DDPM]
-![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/beebfccf-6bb2-401b-abfa-a2598d9ec2ea)  
-![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/55f08dbb-49df-4c27-a0d4-ad0e94b86b85)
+### Classifier Free Guidance [CFG]
+![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/5a803333-95f1-4e6c-b29d-6e504c96f19e)
+![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/093398ab-d90f-4951-802b-81a611638998)
 
+## Training
+- Before training, log in to ```wandb``` on your PC.
+- Please check ```train.py``` and ```config.py``` files and train the model.
+```Shell
+# default option for training
+python train.py
+# don't use wandb
+python train.py --wandb=False
+# change 'epoch_size'.
+python train.py --epoch_size=1000
+# change 'batch size'.
+python train.py --batch_size=128
+# Continue training with latest model
+python train.py --resume=cifar10_1000
+```
 
-### 2. Denoising Diffusion Implicit Models [DDIM]
-![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/27c066ed-1756-4a90-87d1-38a8c5e76516)
-![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/b060fce0-f6a6-48df-9d60-89ba2860717b)
+## Testing
+- Please check ```test.py``` and ```config.py``` files and evaluate the model.
+```Shell
+# recommended option for testing
+python --trained_model=cifar10_1000 --ddim_sampling=False --cfg_w=2.0
+# save images per timestep
+python --trained_model=cifar10_1000 --ddim_sampling=True --save_images=True
+```
+
+## Dataset & Model
+- I resized the ```CIFAR-10-64``` dataset to **32x32** for training.
+- Unzip the dataset in the ```data``` directory.
+- I trained the model with the settings listed below.
+  
+|   CIFAR10-64     | Model  |
+|:--------------:|:-----------:|
+|[kaggle](https://www.kaggle.com/datasets/joaopauloschuler/cifar10-64x64-resized-via-cai-super-resolution)|[Google Drive](https://drive.google.com/file/d/15_JKss-bW9m6ihwEYaIU_DMSFNlDXKZV/view?usp=sharing)|
+
+```Shell
+# diffusion model config
+share_config['time_dim'] = 256
+share_config['condition'] = True
+share_config['timestep_num'] = 1000
+share_config['sampling_timesteps'] = 100
+share_config['beta_schedule'] = 'linear'
+share_config['ddim_eta'] = 0
+share_config['deep_conv'] = True
+share_config['cfg_p_uncond'] = 0.1
+share_config['cfg_w'] = 0.1
+
+# train config
+share_config['batch_size'] = 128
+share_config['epoch_size'] = 1000
+share_config['lr'] = 1e-4
+share_config['ema'] = True
+```
+
 
 ## Results (condition: label)
-|                       |DDPM (speed x5)    |DDIM (Sampling step=100)  |
-|:--------------:|:-----------:|:-----------:|
-| **Gif** |![ddPm_gif_x5](https://github.com/SkiddieAhn/SkiddieAhn/assets/52392658/c284d2d2-c523-402d-aa3f-fea3039d910b)|![ddim_gif_x1](https://github.com/SkiddieAhn/SkiddieAhn/assets/52392658/c810f44b-3cb6-4a55-b590-8c7a23a2237b)|
-| **Img** |![ddpm_last](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/adf4978e-db0e-49f0-8558-0b91b16c5d02)|![ddim_last](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/7510e7b4-2c09-418a-8712-56019d0effed)|
+|             DDPM Sampling          |w = 1.0 <br>(low fidelity, high diversity)   |w = 2.0 <br>(middle fidelity, middle diversity)  |w = 4.0 <br>(high fidelity, low diversity)  |
+|:--------------:|:-----------:|:-----------:|:-----------:|
+| **Img** |![1 0_image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/776905b4-4012-4312-94cf-5165eebf5ef3)|![2 0_image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/0f70b4ee-4788-4368-80e6-b7f9e6324e81)|![4 0_image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/af0ccb20-687d-458e-9dd0-ba8441cd52e7)|
 
-## Results (condition: edge by sobel filter)
-|    Condition  |DDPM    |DDIM  |
-|:--------------:|:-----------:|:-----------:|
-|![mnist_sobel](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/222c32ff-f7c0-41d4-af75-6e931083e177)|![ddpm_last_img](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/0ec9a80a-0427-44cb-aa9a-20b0c7479e42)|![ddim_last_img](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/723f21ec-053f-4cf9-bf43-3c0f527fab02)|
 
 
  
