@@ -15,9 +15,7 @@ Latent DDPM/DDIM with PyTorch using CelebA Dataset.
 | [Google Drive](https://drive.google.com/file/d/0B7EVK8r0v71pZjFTYXZWM3FlRnM/view?resourcekey=0-dYn9z10tMJOBAkviAcfdyQ)   |
 
 ## Results
-|                       |VAE    |LDM (DDPM Sampling) |
-|:--------------:|:-----------:|:-----------:|
-| **Img** |![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/f0556ef5-b57c-4d09-86dc-505889177717)|![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/2089ed3f-b40e-4502-a343-bb266da755f3)|
+|                       |VAE    |LDM (DDPM Sampling) |LDM (DDIM Sampling) |
+|:--------------:|:-----------:|:-----------:|:-----------:|
+| **Img** |![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/f0556ef5-b57c-4d09-86dc-505889177717)|![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/2089ed3f-b40e-4502-a343-bb266da755f3)| ![image](https://github.com/SkiddieAhn/Study-Diffusion-Model/assets/52392658/e1688f7b-c73f-4393-92e9-2d4c3b2e75eb)|
 
-
- 
