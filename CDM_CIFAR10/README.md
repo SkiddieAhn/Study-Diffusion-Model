@@ -12,14 +12,16 @@ Most codes were obtained from the following GitHub page: [[Link]](https://github
 ```Shell
 # default option for training
 python train.py
+# unconditional training
+python train.py --condition=False
 # don't use wandb
 python train.py --wandb=False
 # change 'epoch_size'.
-python train.py --epoch_size=1000
+python train.py --epoch_size=2000
 # change 'batch size'.
 python train.py --batch_size=128
 # Continue training with latest model
-python train.py --resume=cifar10_1000
+python train.py --resume=cifar10_2000
 ```
 
 ## Testing
@@ -27,11 +29,11 @@ python train.py --resume=cifar10_1000
 - When generation is completed, the **video** is automatically saved in the ```contents``` directory.
 ```Shell
 # recommended option for testing
-python test.py --trained_model=cifar10_1000 --ddim_sampling=False --cfg_w=2.0
+python test.py --trained_model=cifar10_2000 --ddim_sampling=False --cfg_w=2.0
 # unconditional testing
-python test.py --trained_model=cifar10_1000 --condition=False
+python test.py --trained_model=cifar10_2000 --condition=False
 # save images per timestep
-python test.py --trained_model=cifar10_1000 --ddim_sampling=True --save_images=True
+python test.py --trained_model=cifar10_2000 --save_images=True
 ```
 
 ## Dataset & Model
@@ -41,7 +43,7 @@ python test.py --trained_model=cifar10_1000 --ddim_sampling=True --save_images=T
   
 |   CIFAR10-64     | Model  |
 |:--------------:|:-----------:|
-|[kaggle](https://www.kaggle.com/datasets/joaopauloschuler/cifar10-64x64-resized-via-cai-super-resolution)|[Google Drive](https://drive.google.com/file/d/15_JKss-bW9m6ihwEYaIU_DMSFNlDXKZV/view?usp=sharing)|
+|[kaggle](https://www.kaggle.com/datasets/joaopauloschuler/cifar10-64x64-resized-via-cai-super-resolution)|[Google Drive](https://drive.google.com/file/d/1DtRLa_zu5fU2Tj6X9FTDiv0FxEWSxopc/view?usp=drive_link)|
 
 ```Shell
 # diffusion model config
@@ -57,7 +59,7 @@ share_config['cfg_w'] = 0.1
 
 # train config
 share_config['batch_size'] = 128
-share_config['epoch_size'] = 1000
+share_config['epoch_size'] = 2000
 share_config['lr'] = 1e-4
 share_config['ema'] = True
 ```
